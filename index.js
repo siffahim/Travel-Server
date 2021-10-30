@@ -84,6 +84,14 @@ async function run() {
             res.json(result)
         })
 
+        //getEmail
+        /* app.post('/booking/byEmail', async (req, res) => {
+            const keys = req.body;
+            const query = { email: { $in: keys } }
+            const products = await bookingCollection.find(query).toArray();
+            res.json(products)
+        }) */
+
     }
     finally {
         // await client.close()
