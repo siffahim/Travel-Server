@@ -56,8 +56,9 @@ async function run() {
  
         //post booking service
         app.post('/booking', async (req, res) => {
-            const booking = req.body;
+            const booking = req.body.data;
             booking.status = false;
+            booking.key = req.body._id;
             const result = await bookingCollection.insertOne(booking);
             res.json(result)
         })
