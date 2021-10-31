@@ -50,15 +50,15 @@ async function run() {
 
 
 
-        /*-------------------------------------
+/*--------------------------------------------------
             booking site
-        ---------------------------------*/
+---------------------------------------------------*/
  
         //post booking service
         app.post('/booking', async (req, res) => {
             const booking = req.body.data;
             booking.status = false;
-            booking.key = req.body._id;
+            booking.url = req.body.url;
             const result = await bookingCollection.insertOne(booking);
             res.json(result)
         })
@@ -81,17 +81,14 @@ async function run() {
         //status update
         app.put('/booking', async (req, res) => {
             const result = await bookingCollection.updateOne({ _id: ObjectId(req.body._id) }, { $set: { status: req.body.task } }, { upsert: true })
-
             res.json(result)
         })
 
         //getEmail
-        /* app.post('/booking/byEmail', async (req, res) => {
-            const keys = req.body;
-            const query = { email: { $in: keys } }
-            const products = await bookingCollection.find(query).toArray();
+        app.post('/booking/email', async (req, res) => {
+            const products = await bookingCollection.find({email:req.body.email}).toArray();
             res.json(products)
-        }) */
+        })
 
     }
     finally {
